@@ -36,11 +36,13 @@ FusionEKF::FusionEKF() {
 			0, 1, 0, 0;
 			
   //measurement jacobian matrix - radar
-  Hj_ << 
+  Hj_ << 1,1,0,0
+		-1,1,0,0
+		1,1,1,1;
 			
 			
-  noise_ax = 5;
-  noise_ay = 5;
+  noise_ax = 9;
+  noise_ay = 9;
 
   /**
   TODO:
