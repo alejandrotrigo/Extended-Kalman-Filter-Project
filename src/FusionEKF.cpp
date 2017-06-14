@@ -35,6 +35,9 @@ FusionEKF::FusionEKF() {
   H_laser_ << 1, 0, 0, 0
 			0, 1, 0, 0;
 			
+  //measurement jacobian matrix - radar
+  Hj_ << 
+			
 			
   noise_ax = 5;
   noise_ay = 5;
