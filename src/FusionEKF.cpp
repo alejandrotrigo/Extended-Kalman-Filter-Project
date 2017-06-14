@@ -30,6 +30,14 @@ FusionEKF::FusionEKF() {
   R_radar_ << 0.09, 0, 0,
         0, 0.0009, 0,
         0, 0, 0.09;
+        
+  //measuerment matrix - laser
+  H_laser_ << 1, 0, 0, 0
+			0, 1, 0, 0;
+			
+			
+  noise_ax = 5;
+  noise_ay = 5;
 
   /**
   TODO:
