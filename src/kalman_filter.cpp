@@ -48,13 +48,23 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	MatrixXd K = PHt * Si;
   
 	float rho = sqrt(x_(0) * x_(0) + x_(1) * x_(1));
-	float theta = atan(x_(1)/x_(0));
+	float theta = atan2(x_(1), x_(0));
+	if (rho < 0.0001){
+		rho = 0.0001;
+	}
 	float rho_dot = (x_(0)*x_(2)+x_(1)*x_(3))/rho;
+	
 	VectorXd h = VectorXd(3);
   
 	h << rho, theta, rho_dot;
   
 	VectorXd y = z - h; 
+	
+	if(y[1] < -M_PI){
+		y[1] = M_PI + std::fmod(y[1] + M_PI, M_PI + M_PI);
+	}else if(y[1] > M_PI){
+		y[1] = std::fmod(y[1] + M_PI, M_PI + M_PI) - M_PI;
+	}
   
 	//new estimate
 	x_ = x_ + (K * y);
